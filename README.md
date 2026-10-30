@@ -23,8 +23,8 @@ v1 只搜内置 16 条，不是全仓库。v2 改为：App 联网拉各仓库的
 - 默认仓库（分支）：blackmatrix7/ios_rule_script（master）、fmz200/wool_scripts（main）、
   sve1r/Rules-For-Quantumult-X（main）、zqzess/rule_for_quantumultX（master）、
   ACL4SSR/ACL4SSR（master）、ddgksf2013/ddgksf2013（main）。
-- 启动时先显示已有数据（缓存或内置 16 条），同时在后台拉最新列表；
-  拉到后无缝换成全量列表并记下更新时间；拉取失败就继续用已有数据并给一句不打扰的提示。
+- 首次进去直接拉取并缓存；之后启动先显示缓存，后台按需刷新；
+  拉到后无缝换成全量列表并记下更新时间；拉取失败显示空列表并给一句刷新提示。
   界面上有刷新按钮和一行“数据更新于 …”，拉取中显示加载状态。
 
 ### 索引只收 QX 资源
@@ -39,14 +39,13 @@ v1 只搜内置 16 条，不是全仓库。v2 改为：App 联网拉各仓库的
 因此 ACL4SSR（只有 Clash 目录）和 ddgksf2013（只有 README）在 v2 里贡献 0 条，
 仍留在默认仓库列表里（以后它们有了 QX 目录会自动收进来）。
 注意：在线索引按文件种类定类型，所以 fmz200 的 filter.list、sve1r 的 AdReject.list
-在线上会显示为分流；而内置 16 条兜底文件本身不动，里面这几条仍标去广告——
-兜底只在从没成功拉到过时显示，不影响在线结果。
+会显示为分流。
 
 ### 缓存策略和断网回落
 
 - 缓存带时间戳，存在 Application Support 的 `rule-cache.json`，24 小时内算新鲜，新鲜的不重复拉。
 - 断网时优先用上次缓存的全量列表，哪怕超过 24 小时也照常用，界面上标明数据时间；
-  只有从没成功拉到过、本地完全没有缓存时，才回落到内置 16 条。
+  没有缓存时不显示任何预留数据，首次进去直接拉取并缓存，拉取失败显示空列表和刷新提示。
 - 离线时搜索能用，但导入只是把链接交给圈 X / Surge，真正下载规则文件的是它们，
   没网时导入会失败，等联网后再点一次——这句提示写在离线状态和导入失败的文案里。
 
@@ -112,19 +111,10 @@ ScriptHub 拉不到或转换失败时，App 给一句提示，并给回直接导
 - Surge 去广告：复制原始链接（QX 重写文件需经转换才能用作 Surge 模块）；
 - 圈 X 不需要兜底：原始链接本身就是 QX 格式，直接导入永远可用。
 
-## 规则索引（内置兜底）
+## 规则索引
 
-`RuleSearch/rules.json` 是 App 内置索引，第一版 16 条，全部经 GitHub API 核实过真实存在，
-本来就是 QX 格式，v2 不动它（只把字段改成单 `url`，id 改成稳定的“仓库 + 文件路径”，
-这样在线索引一到，同一条规则的收藏能无缝对上）：
-
-| 来源 | 条数 |
-| --- | --- |
-| blackmatrix7/ios_rule_script | 11 |
-| fmz200/wool_scripts | 3 |
-| sve1r/Rules-For-Quantumult-X | 2 |
-
-类型：分流 13 条，去广告 3 条。核实不了的路径见 `UNVERIFIED.md`。
+没有内置索引：首次进去直接拉取各仓库的文件列表并缓存，之后只显示拉到的数据。
+第一版的 16 条内置数据已移除，不再显示。核实不了的路径见 `UNVERIFIED.md`。
 
 ## 搜索
 
@@ -135,12 +125,10 @@ GPT/OpenAI/ChatGPT、苹果/Apple、快手/KuaiShou、小红书/RedBook、谷歌
 
 ## 图标
 
-`RuleSearch/Assets.xcassets/AppIcon.appiconset/`：1024  marketing 图标单项，
-文件是 `icon/AppIcon-1024.png` 的原样复制（靛蓝到青色的斜向渐变底 + 白色放大镜，
+`RuleSearch/Assets.xcassets/AppIcon.appiconset/`：全尺寸图标（1024 营销图标 + 各尺寸主屏图标），
+源文件是 `icon/AppIcon-1024.png`（靛蓝到青色的斜向渐变底 + 白色放大镜，
 镜片里三行“圆点 + 横线”的规则行，设计没改），`icon/make_icon.py` 是生成脚本，留着以后改色改稿。
 pbxproj 里 asset catalog 已加进 target 资源，AppIcon 名称已设置。
-注意：目前只接了 1024 这一项，archive 能过，但主屏各尺寸图标还是空的，
-上机后主屏图标会是空白——要补全尺寸的话得另外加（不在这次接线范围内）。
 
 ## 本地构建
 
