@@ -53,8 +53,7 @@ enum Importer {
 
     // MARK: - 圈 X：一键加资源
 
-    /// .list 进 filter_remote，.conf 进 rewrite_remote（按文件格式分，不按类型标签分：
-    /// 内置兜底里有几条去广告 .list，它们必须进 filter_remote）。
+    /// .list 进 filter_remote，.conf 进 rewrite_remote（按文件格式分，不按类型标签分）。
     @discardableResult
     static func openQuantumultX(link: String, tag: String) -> Bool {
         let key = link.hasSuffix(".conf") ? "rewrite_remote" : "filter_remote"
