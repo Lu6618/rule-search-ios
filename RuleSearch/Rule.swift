@@ -1,8 +1,12 @@
 import Foundation
 
 /// 一条规则的索引数据，对应 rules.json 里的一条。
-struct RuleEntry: Identifiable, Decodable {
-    enum Kind: String, Decodable {
+/// Codable：在线拉到的条目同样要写进本地缓存，所以需要可编码。
+/// id 必须是稳定的“仓库 + 文件路径”，收藏靠它在索引刷新后不丢。
+/// url 是唯一的原始链接：索引只收 QX 资源，选客户端时再经 ScriptHub 转换，
+/// 不再像 v1 那样一条规则分圈 X 版 / Surge 版，搜索结果也不再按客户端分开展示。
+struct RuleEntry: Identifiable, Codable {
+    enum Kind: String, Codable {
         case routing = "分流"
         case adblock = "去广告"
     }
@@ -12,23 +16,11 @@ struct RuleEntry: Identifiable, Decodable {
     let keywords: [String]
     let source: String
     let type: Kind
-    let qxURL: String?
-    let surgeURL: String?
-    let surgeModuleURL: String?
+    /// 原始 QX 资源链接（raw.githubusercontent.com）。
+    let url: String
 
     enum CodingKeys: String, CodingKey {
-        case id, name, keywords, source, type
-        case qxURL = "qx_url"
-        case surgeURL = "surge_url"
-        case surgeModuleURL = "surge_module_url"
-    }
-
-    /// 客户端徽章：只有给了对应链接的客户端才显示。
-    var clients: [String] {
-        var result: [String] = []
-        if qxURL != nil { result.append("圈 X") }
-        if surgeURL != nil || surgeModuleURL != nil { result.append("Surge") }
-        return result
+        case id, name, keywords, source, type, url
     }
 }
 
