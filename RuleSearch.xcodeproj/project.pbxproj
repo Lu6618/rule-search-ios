@@ -11,7 +11,6 @@
 		777777777777777777777782 = {isa = PBXBuildFile; fileRef = 777777777777777777777772; };
 		777777777777777777777783 = {isa = PBXBuildFile; fileRef = 777777777777777777777773; };
 		777777777777777777777784 = {isa = PBXBuildFile; fileRef = 777777777777777777777774; };
-		777777777777777777777785 = {isa = PBXBuildFile; fileRef = 777777777777777777777775; };
 		777777777777777777777786 = {isa = PBXBuildFile; fileRef = 777777777777777777777776; };
 		777777777777777777777787 = {isa = PBXBuildFile; fileRef = 777777777777777777777777; };
 		777777777777777777777788 = {isa = PBXBuildFile; fileRef = 777777777777777777777778; };
@@ -24,7 +23,6 @@
 		777777777777777777777772 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		777777777777777777777773 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rule.swift; sourceTree = "<group>"; };
 		777777777777777777777774 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Importer.swift; sourceTree = "<group>"; };
-		777777777777777777777775 = {isa = PBXFileReference; lastKnownFileType = text.json; path = rules.json; sourceTree = "<group>"; };
 		777777777777777777777776 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchEngine.swift; sourceTree = "<group>"; };
 		777777777777777777777777 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleStore.swift; sourceTree = "<group>"; };
 		777777777777777777777778 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favorites.swift; sourceTree = "<group>"; };
@@ -57,7 +55,6 @@
 				777777777777777777777772,
 				777777777777777777777773,
 				777777777777777777777774,
-				777777777777777777777775,
 				777777777777777777777776,
 				777777777777777777777777,
 				777777777777777777777778,
@@ -132,7 +129,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				777777777777777777777785,
 				777777777777777777777789,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
