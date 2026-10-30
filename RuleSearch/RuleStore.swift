@@ -2,10 +2,10 @@ import Foundation
 import Network
 
 /// 在线索引的状态：仓库列表、缓存条目、更新时间、离线状态。
-/// 缓存策略（纠正后的版本，以此为准）：
+/// 缓存策略：
 /// - 24 小时内算新鲜，新鲜的不重复拉；
 /// - 断网或拉取失败时，优先用上次缓存的全量列表，哪怕超过 24 小时也照常用，界面标明数据时间；
-/// - 只有从没成功拉到过、本地完全没有缓存时，才回落到内置 16 条。
+/// - 没有缓存时不显示任何预留数据：首次进去直接拉取并缓存，拉取失败显示空列表和刷新提示。
 /// 仓库被删后，它的缓存条目不再出现；加回来后，缓存还在就直接恢复，不用重新拉。
 @MainActor
 final class RuleStore: ObservableObject {
@@ -57,8 +57,7 @@ final class RuleStore: ObservableObject {
             formatter.dateFormat = "MM-dd HH:mm"
             return "数据更新于 \(formatter.string(from: updatedAt))"
         }
-        if entries.isEmpty { return "暂无数据" }
-        return "内置数据"
+        return "暂无数据"
     }
 
     func cachedEntryCount(for repo: RepoSource) -> Int? {
@@ -78,8 +77,8 @@ final class RuleStore: ObservableObject {
             }
         }
         if all.isEmpty {
-            // 从没成功拉到过才回落内置 16 条；删光仓库后是空列表，不是内置。
-            entries = hasEverFetched ? [] : RuleSearch.loadBundledRules()
+            // 不显示任何预留数据：没有缓存就是空列表，首次进去直接拉取并缓存。
+            entries = []
             updatedAt = latest
         } else {
             entries = all.sorted { a, b in
@@ -148,10 +147,8 @@ final class RuleStore: ObservableObject {
         if !failed.isEmpty {
             if hasCachedEntries {
                 notice = "更新失败，仍显示上次缓存"
-            } else if !hasEverFetched {
-                notice = "拉取失败，当前显示内置数据，联网后点刷新重试"
             } else {
-                notice = "拉取失败，暂无可用数据"
+                notice = "拉取失败，联网后点刷新重试"
             }
         }
     }
