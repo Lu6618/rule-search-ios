@@ -1,0 +1,220 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		777777777777777777777781 = {isa = PBXBuildFile; fileRef = 777777777777777777777771; };
+		777777777777777777777782 = {isa = PBXBuildFile; fileRef = 777777777777777777777772; };
+		777777777777777777777783 = {isa = PBXBuildFile; fileRef = 777777777777777777777773; };
+		777777777777777777777784 = {isa = PBXBuildFile; fileRef = 777777777777777777777774; };
+		777777777777777777777785 = {isa = PBXBuildFile; fileRef = 777777777777777777777775; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		666666666666666666666666 = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RuleSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		777777777777777777777771 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleSearchApp.swift; sourceTree = "<group>"; };
+		777777777777777777777772 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		777777777777777777777773 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rule.swift; sourceTree = "<group>"; };
+		777777777777777777777774 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Importer.swift; sourceTree = "<group>"; };
+		777777777777777777777775 = {isa = PBXFileReference; lastKnownFileType = text.json; path = rules.json; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AAAAAAAAAAAAAAAAAAAAAAAA = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		333333333333333333333333 = {
+			isa = PBXGroup;
+			children = (
+				444444444444444444444444,
+				555555555555555555555555,
+			);
+			sourceTree = "<group>";
+		};
+		444444444444444444444444 = {
+			isa = PBXGroup;
+			children = (
+				777777777777777777777771,
+				777777777777777777777772,
+				777777777777777777777773,
+				777777777777777777777774,
+				777777777777777777777775,
+			);
+			path = RuleSearch;
+			sourceTree = "<group>";
+		};
+		555555555555555555555555 = {
+			isa = PBXGroup;
+			children = (
+				666666666666666666666666,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		222222222222222222222222 = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CCCCCCCCCCCCCCCCCCCCCCCC;
+			buildPhases = (
+				888888888888888888888888,
+				AAAAAAAAAAAAAAAAAAAAAAAA,
+				999999999999999999999999,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RuleSearch;
+			productName = RuleSearch;
+			productReference = 666666666666666666666666;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		111111111111111111111111 = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					222222222222222222222222 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = BBBBBBBBBBBBBBBBBBBBBBBB;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 333333333333333333333333;
+			productRefGroup = 555555555555555555555555;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				222222222222222222222222,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		999999999999999999999999 = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				777777777777777777777785,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		888888888888888888888888 = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				777777777777777777777781,
+				777777777777777777777782,
+				777777777777777777777783,
+				777777777777777777777784,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		DDDDDDDDDDDDDDDDDDDDDDDD = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		EEEEEEEEEEEEEEEEEEEEEEEE = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		FFFFFFFFFFFFFFFFFFFFFFFF = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rulesearch.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMBED_LIBRARIES_WITH_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		121212121212121212121212 = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rulesearch.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMBED_LIBRARIES_WITH_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BBBBBBBBBBBBBBBBBBBBBBBB = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DDDDDDDDDDDDDDDDDDDDDDDD,
+				EEEEEEEEEEEEEEEEEEEEEEEE,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CCCCCCCCCCCCCCCCCCCCCCCC = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FFFFFFFFFFFFFFFFFFFFFFFF,
+				121212121212121212121212,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 111111111111111111111111;
+}
