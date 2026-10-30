@@ -1,5 +1,9 @@
 name: iOS Build
 
+concurrency:
+  group: ios-build
+  cancel-in-progress: true
+
 on:
   push:
     branches: [main]
