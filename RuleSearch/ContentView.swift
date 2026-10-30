@@ -337,7 +337,7 @@ private struct RuleCard: View {
                 Button(action: onToggleFavorite) {
                     Image(systemName: isFavorite ? "star.fill" : "star")
                         .font(.body)
-                        .foregroundStyle(isFavorite ? .yellow : .tertiary)
+                        .foregroundStyle(isFavorite ? .yellow : .secondary)
                 }
                 .buttonStyle(.plain)
                 Image(systemName: "chevron.down")
