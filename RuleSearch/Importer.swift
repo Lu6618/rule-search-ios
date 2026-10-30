@@ -10,7 +10,7 @@ enum ImportClient {
 /// ScriptHub 转换链接格式（对照 Script-Hub 官方解析器源码核实，非猜测）：
 /// - 规则集（.list）→ Surge：http://script.hub/file/_start_/<原始链接>/_end_/<文件名>?type=rule-set&target=surge-rule-set
 ///   （rule-parser.js：target == 'surge-rule-set' 输出 Surge RULE-SET 格式，HOST→DOMAIN 等映射都在里面）
-/// - QX 重写（.conf）→ Surge 模块：http://script.hub/file/_start_/<原始链接>/_end_/<名>.sgmodule?type=qx-rewrite&target=surge-module
+/// - QX 重写（.conf/.snippet）→ Surge 模块：http://script.hub/file/_start_/<原始链接>/_end_/<名>.sgmodule?type=qx-rewrite&target=surge-module
 ///   （Rewrite-Parser.js：target == 'surge-module' 输出 Surge 模块）
 /// - 圈 X：不需要转换，转换后链接就是原始链接（rule-parser 没有 QX 目标，QX 资源原生就是 QX 格式）。
 ///
@@ -53,10 +53,10 @@ enum Importer {
 
     // MARK: - 圈 X：一键加资源
 
-    /// .list 进 filter_remote，.conf 进 rewrite_remote（按文件格式分，不按类型标签分）。
+    /// .list 进 filter_remote，.conf/.snippet 进 rewrite_remote（按文件格式分，不按类型标签分）。
     @discardableResult
     static func openQuantumultX(link: String, tag: String) -> Bool {
-        let key = link.hasSuffix(".conf") ? "rewrite_remote" : "filter_remote"
+        let key = (link.hasSuffix(".conf") || link.hasSuffix(".snippet")) ? "rewrite_remote" : "filter_remote"
         let entry = "\(link), tag=\(tag)"
         guard let data = try? JSONSerialization.data(withJSONObject: [key: [entry]]),
               let json = String(data: data, encoding: .utf8),

@@ -32,12 +32,22 @@ final class RuleStore: ObservableObject {
         if let data = UserDefaults.standard.data(forKey: Keys.repos),
            let saved = try? JSONDecoder().decode([RepoSource].self, from: data),
            !saved.isEmpty {
-            repos = saved
+            // 一次性迁移：默认仓库从 6 家缩到 2 家后，已存的内置旧仓库要清掉，
+            // 自己加的自定义仓库不受影响；被清掉的仓库缓存随后一并删。
+            let defaultKeys = Set(SearchEngine.defaultRepos.map { $0.key })
+            let kept = saved.filter { $0.isCustom || defaultKeys.contains($0.key) }
+            repos = kept.isEmpty ? SearchEngine.defaultRepos : kept
+            if kept.count != saved.count { saveRepos() }
         } else {
             repos = SearchEngine.defaultRepos
         }
         hasEverFetched = UserDefaults.standard.bool(forKey: Keys.everFetched)
         cache = CacheFile.load()
+        let liveKeys = Set(repos.map { $0.key })
+        if cache.repos.keys.contains(where: { !liveKeys.contains($0) }) {
+            cache.repos = cache.repos.filter { liveKeys.contains($0.key) }
+            cache.save()
+        }
         recompute()
         monitor.pathUpdateHandler = { [weak self] path in
             Task { @MainActor in self?.isOffline = path.status != .satisfied }
@@ -200,7 +210,7 @@ final class RuleStore: ObservableObject {
         recompute()
     }
 
-    /// 一键回到最初 6 家，并把自定义仓库的缓存清掉，随后按新鲜度补拉。
+    /// 一键回到最初 2 家，并把自定义仓库的缓存清掉，随后按新鲜度补拉。
     func restoreDefaultsAndRefresh() async {
         repos = SearchEngine.defaultRepos
         saveRepos()

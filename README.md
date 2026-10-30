@@ -20,9 +20,10 @@ v1 只搜内置 16 条，不是全仓库。v2 改为：App 联网拉各仓库的
   `https://api.github.com/repos/<owner>/<repo>/git/trees/<分支>?recursive=1`
   （jsDelivr 数据接口试过，返回 URL not found，已放弃）。
   未认证限流 60 次/小时，一次刷新最多拉仓库数个 tree，够用。
-- 默认仓库（分支）：blackmatrix7/ios_rule_script（master）、fmz200/wool_scripts（main）、
-  sve1r/Rules-For-Quantumult-X（main）、zqzess/rule_for_quantumultX（master）、
-  ACL4SSR/ACL4SSR（master）、ddgksf2013/ddgksf2013（main）。
+- 默认仓库（分支）：blackmatrix7/ios_rule_script（master）、fmz200/wool_scripts（main）。
+  分流规则用这两家就够了；sve1r、zqzess、ACL4SSR、ddgksf2013 不再是默认仓库，
+  需要的话可以当自定义仓库加回来（其中 ACL4SSR 只有 Clash 目录、ddgksf2013 只有 README，
+  按 QX 标准本来就贡献 0 条）。
 - 首次进去直接拉取并缓存；之后启动先显示缓存，后台按需刷新；
   拉到后无缝换成全量列表并记下更新时间；拉取失败显示空列表并给一句刷新提示。
   界面上有刷新按钮和一行“数据更新于 …”，拉取中显示加载状态。
@@ -32,14 +33,11 @@ v1 只搜内置 16 条，不是全仓库。v2 改为：App 联网拉各仓库的
 内置和自定义仓库同一套标准，不再按路径关键词猜类型：
 
 - 分流 = QX 的 filter 列表：QX 倾向目录（QuantumultX、Rules、filter）下的 `.list`；
-- 去广告 = QX 的重写文件：rewrite 目录下的 `.conf`。
+- 去广告 = QX 的重写文件：rewrite 目录下的 `.conf` 或 `.snippet`。
 - Surge、Loon、Clash、Shadowrocket、Stash、Egern 目录下的文件一律不收；
-  `.sgmodule`、`.snippet`、`.plugin`、`.yaml`、脚本、图片、文档、整包配置一律不收。
+  `.sgmodule`、`.plugin`、`.yaml`、脚本、图片、文档、整包配置一律不收。
 
-因此 ACL4SSR（只有 Clash 目录）和 ddgksf2013（只有 README）在 v2 里贡献 0 条，
-仍留在默认仓库列表里（以后它们有了 QX 目录会自动收进来）。
-注意：在线索引按文件种类定类型，所以 fmz200 的 filter.list、sve1r 的 AdReject.list
-会显示为分流。
+注意：在线索引按文件种类定类型，所以 fmz200 的 filter.list 会显示为分流。
 
 ### 缓存策略和断网回落
 
@@ -51,12 +49,12 @@ v1 只搜内置 16 条，不是全仓库。v2 改为：App 联网拉各仓库的
 
 ### 自定义仓库源
 
-仓库列表存在 UserDefaults，默认就是上面 6 家。
+仓库列表存在 UserDefaults，默认就是上面 2 家。
 
 - 新增：输入 owner/repo 和分支（分支默认 main，拉不到自动试 master）。
   新增时先拉一次该仓库的文件列表验证，拉不到或里面没有 QX 资源就报错、不添加。
-- 删除：内置 6 家和自己加的都能删，删了之后搜索结果里就不含这家的条目。
-- 恢复默认仓库：一键回到最初 6 家，自定义仓库和它们的缓存会被清掉。
+- 删除：内置 2 家和自己加的都能删，删了之后搜索结果里就不含这家的条目。
+- 恢复默认仓库：一键回到最初 2 家，自定义仓库和它们的缓存会被清掉。
 - 新增仓库拉到的列表同样进缓存，同样受 24 小时新鲜度约束。
 
 ### 收藏
@@ -79,7 +77,7 @@ v1 只搜内置 16 条，不是全仓库。v2 改为：App 联网拉各仓库的
 - 规则集（.list）→ Surge：
   `http://script.hub/file/_start_/<原始链接>/_end_/<文件名>?type=rule-set&target=surge-rule-set`
   （rule-parser.js：target 为 surge-rule-set 时输出 Surge RULE-SET 格式，HOST→DOMAIN 等映射都在里面）
-- QX 重写（.conf）→ Surge 模块：
+- QX 重写（.conf/.snippet）→ Surge 模块：
   `http://script.hub/file/_start_/<原始链接>/_end_/<名>.sgmodule?type=qx-rewrite&target=surge-module`
   （Rewrite-Parser.js：target 为 surge-module 时输出 Surge 模块）
 - 圈 X：不需要转换，转换后链接就是原始链接（rule-parser 没有 QX 目标，QX 资源原生就是 QX 格式）。
@@ -90,7 +88,7 @@ v1 只搜内置 16 条，不是全仓库。v2 改为：App 联网拉各仓库的
 ### 导入方式
 
 - 圈 X：`quantumult-x:///add-resource`，转换后链接（即原始链接）放进 filter_remote（分流）
-  或 rewrite_remote（去广告重写 .conf，按文件格式分）。
+  或 rewrite_remote（去广告重写 .conf/.snippet，按文件格式分）。
 - Surge 去广告类：`surge:///install-module`，用转换后的模块链接真一键安装。
 - Surge 分流到代理：模块规则指不到用户策略组，这个限制不变，
   仍走一键复制 `RULE-SET,<转换后链接>,你的策略组` + 跳转 Surge 手动粘贴。

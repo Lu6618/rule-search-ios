@@ -734,7 +734,7 @@ struct RepoManagementView: View {
                 }
                 Button("取消", role: .cancel) {}
             } message: {
-                Text("回到最初 6 家，自定义仓库和它们的缓存会被清掉。")
+                Text("回到最初 2 家，自定义仓库和它们的缓存会被清掉。")
             }
         }
     }

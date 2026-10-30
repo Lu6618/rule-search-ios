@@ -1,6 +1,6 @@
 import Foundation
 
-/// 一个规则仓库源。存在 UserDefaults，默认就是下面 6 家，用户可增删。
+/// 一个规则仓库源。存在 UserDefaults，默认就是下面 2 家，用户可增删。
 struct RepoSource: Codable, Equatable, Identifiable {
     var owner: String
     var repo: String
@@ -51,19 +51,15 @@ struct CacheFile: Codable {
 ///
 /// 索引只收 QX 资源（内置和自定义仓库同一套标准）：
 /// - 分流 = QX 的 filter 列表，即 QX 倾向目录下的 .list；
-/// - 去广告 = QX 的重写文件，即 rewrite 目录下的 .conf。
+/// - 去广告 = QX 的重写文件，即 rewrite 目录下的 .conf 或 .snippet。
 /// Surge、Loon、Clash、Shadowrocket、Stash、Egern 目录下的文件一律不收；
-/// .sgmodule、.snippet、.plugin、.yaml、脚本、图片、文档、整包配置一律不收。
+/// .sgmodule、.plugin、.yaml、脚本、图片、文档、整包配置一律不收。
 /// 类型只按文件种类定，不再靠路径关键词猜。
 enum SearchEngine {
 
     static let defaultRepos: [RepoSource] = [
         RepoSource(owner: "blackmatrix7", repo: "ios_rule_script", branch: "master", isCustom: false),
         RepoSource(owner: "fmz200", repo: "wool_scripts", branch: "main", isCustom: false),
-        RepoSource(owner: "sve1r", repo: "Rules-For-Quantumult-X", branch: "main", isCustom: false),
-        RepoSource(owner: "zqzess", repo: "rule_for_quantumultX", branch: "master", isCustom: false),
-        RepoSource(owner: "ACL4SSR", repo: "ACL4SSR", branch: "master", isCustom: false),
-        RepoSource(owner: "ddgksf2013", repo: "ddgksf2013", branch: "main", isCustom: false),
     ]
 
     // MARK: - 拉取
@@ -131,7 +127,7 @@ enum SearchEngine {
         if lower.hasSuffix(".list") {
             return parts.contains(where: { qxDirs.contains($0) }) ? .routing : nil
         }
-        if lower.hasSuffix(".conf") {
+        if lower.hasSuffix(".conf") || lower.hasSuffix(".snippet") {
             return parts.contains("rewrite") ? .adblock : nil
         }
         return nil
