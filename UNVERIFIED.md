@@ -3,6 +3,18 @@
 第一版只收经 GitHub API 或 raw 链接核实过真实存在的路径。下面这些没核实到，
 一律没进 `rules.json`，等核实后再加。
 
+## v2 说明（在线索引后，本文件大部分已过时，仅留作核查记录）
+
+- zqzess：v2 用 GitHub recursive tree 核实到 `QuantumultX/rules/` 下 13 个 `.list`
+  和 `QuantumultX/rewrite/` 下的 `.conf`，已进在线索引（QX 资源标准）。
+- ACL4SSR：v2 tree 核实到只有 Clash 目录，没有 QX 资源；按“只收 QX 资源”的标准，
+  在线索引里贡献 0 条——不是没核实，是标准变了。
+- ddgksf2013：v2 tree 再次确认只有 README.md，贡献 0 条。
+- bm7 DouYin：仍是未核实状态（当年那次 403 没重试）；但 v2 在线索引是全量拉 tree，
+  如果该文件现在存在，索引里会自动出现，不需要再手工核实。
+- Surge `.sgmodule`：v2 索引不再收 `.sgmodule`（不是 QX 资源），Surge 模块改由
+  ScriptHub 把 QX 重写转换出来，见 README 的导入流程一节。
+
 ## bm7 抖音（状态未知，不是“不存在”）
 
 - `blackmatrix7/ios_rule_script` 的 `rule/QuantumultX/DouYin/DouYin.list`：
