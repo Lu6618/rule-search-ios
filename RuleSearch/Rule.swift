@@ -1,6 +1,6 @@
 import Foundation
 
-/// 一条规则的索引数据，对应 rules.json 里的一条。
+/// 一条规则的索引数据。
 /// Codable：在线拉到的条目同样要写进本地缓存，所以需要可编码。
 /// id 必须是稳定的“仓库 + 文件路径”，收藏靠它在索引刷新后不丢。
 /// url 是唯一的原始链接：索引只收 QX 资源，选客户端时再经 ScriptHub 转换，
@@ -63,13 +63,4 @@ enum RuleSearch {
         rules.filter { matches($0, query: query) }
     }
 
-    /// 从 App 包里读 rules.json；读不到就返回空列表，不崩。
-    static func loadBundledRules() -> [RuleEntry] {
-        guard let url = Bundle.main.url(forResource: "rules", withExtension: "json"),
-              let data = try? Data(contentsOf: url),
-              let rules = try? JSONDecoder().decode([RuleEntry].self, from: data) else {
-            return []
-        }
-        return rules
-    }
 }
